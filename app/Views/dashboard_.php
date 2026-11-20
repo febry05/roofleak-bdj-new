@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Monitoring Penanganan Kebocoran Atap – Bandara Syamsudin Noor</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef2f7;--card:#fff;--ink:#0d1b36;--mut:#5b6882;--line:#d9e0ec;--navy:#0b2a5b;--p1:#c8202f;--p2:#e8920c;--p3:#2f8f3e;--map:#dde6f1;--bld:#f7faff;
+--s0:#8791a5;--s1:#3b6fd8;--s2:#7a4fd0;--s3:#0f9d8a;--inp:#f6f8fc}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0a1325;--card:#111d36;--ink:#e8eefb;--mut:#93a1bf;--line:#243252;--navy:#7fa6ff;--map:#14213c;--bld:#1b2c4f;--inp:#0c1730;--p1:#ef4a58;--p2:#f5a524;--p3:#4ab35a;--s0:#8d98b0;--s1:#6b9bff;--s2:#a58aff;--s3:#2dc9b2}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0a1325;--card:#111d36;--ink:#e8eefb;--mut:#93a1bf;--line:#243252;--navy:#7fa6ff;--map:#14213c;--bld:#1b2c4f;--inp:#0c1730;--p1:#ef4a58;--p2:#f5a524;--p3:#4ab35a;--s0:#8d98b0;--s1:#6b9bff;--s2:#a58aff;--s3:#2dc9b2}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif}
+header{background:#0b2a5b;color:#fff;padding:18px clamp(14px,3vw,32px)}
+header .in{max-width:1280px;margin:auto;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+h1{font-size:clamp(18px,2.4vw,26px);margin:0;font-weight:800;letter-spacing:-.01em}
+header p{margin:2px 0 0;opacity:.8;font-size:13px}
+.sy{font-size:12px;font-weight:600;padding:6px 10px;border-radius:99px;background:rgba(255,255,255,.14);color:#fff}.sy[data-ok="1"]::before,.sy[data-ok="0"]::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:#f5a524}.sy[data-ok="1"]::before{background:#4ade80}
+.maph{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}.maph h2{margin:0}.add{background:var(--navy);color:var(--card);border:0;border-radius:8px;padding:7px 12px;font-weight:700;cursor:pointer}.af{margin-top:12px;border:2px dashed var(--navy);border-radius:10px;padding:12px}.af[hidden]{display:none}.btnl{border:1px solid var(--line);background:var(--inp);border-radius:8px;padding:7px 12px;font-weight:600;cursor:pointer}.dng{color:var(--p1);border-color:var(--p1)}svg.map.adding{cursor:crosshair}
+a.btn{text-decoration:none}.ro{background:var(--inp);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:12.5px;color:var(--mut)}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button,select,input,textarea{font:inherit;color:inherit}
+.btn{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:600}
+.btn:hover{background:rgba(255,255,255,.22)}
+:focus-visible{outline:3px solid #f5a524;outline-offset:2px}
+main{max-width:1280px;margin:auto;padding:18px clamp(14px,3vw,32px) 40px;display:grid;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+h2{font-size:15px;margin:0 0 12px;font-weight:700}
+.kpis{display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:12px}
+.kpi{border-left:5px solid var(--c,var(--line))}
+.kpi b{display:block;font-size:30px;line-height:1.1;font-weight:800}
+.kpi span{color:var(--mut);font-size:12.5px}
+.prog{display:flex;align-items:center;gap:14px}
+.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden;display:flex;margin-top:8px}
+.bar i{display:block;height:100%}
+.grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+svg.map{width:100%;height:auto;background:var(--map);border-radius:8px;display:block}
+.mk{cursor:pointer}
+.mk text{font-size:13px;font-weight:700;fill:#fff;pointer-events:none}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12px;color:var(--mut)}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;vertical-align:-1px;margin-right:5px}
+.zones{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.z{border:1px solid var(--line);border-radius:8px;padding:8px 10px;cursor:pointer;background:var(--inp);text-align:left}
+.z[aria-pressed=true]{border-color:var(--navy);box-shadow:0 0 0 2px var(--navy) inset}
+.z b{font-size:12px;display:block}.z small{color:var(--mut)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tools input,.tools select{background:var(--inp);border:1px solid var(--line);border-radius:8px;padding:7px 10px;min-width:0}
+.tools input{flex:1 1 130px}
+.tw{max-height:430px;overflow:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{position:sticky;top:0;background:var(--card);font-size:12px;color:var(--mut)}
+tr.r{cursor:pointer}tr.r:hover,tr.sel{background:var(--inp)}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700;color:#fff;background:var(--c)}
+.pr{display:inline-block;width:22px;height:22px;border-radius:6px;color:#fff;text-align:center;font-weight:800;font-size:12px;line-height:22px;background:var(--c)}
+.late{color:var(--p1);font-weight:700}
+.det{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.det label{display:grid;gap:4px;font-size:12px;color:var(--mut);font-weight:600}
+.det input,.det select,.det textarea{background:var(--inp);border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--ink);width:100%}
+.full{grid-column:1/-1}
+.sbtn{display:flex;gap:6px;flex-wrap:wrap}
+.sbtn button{flex:1;border:2px solid var(--c);background:transparent;color:var(--c);border-radius:8px;padding:7px 8px;font-weight:700;cursor:pointer}
+.sbtn button[aria-pressed=true]{background:var(--c);color:#fff}
+a{color:var(--navy);font-weight:600}
+.note{font-size:12px;color:var(--mut)}
+@media(max-width:900px){.kpis{grid-template-columns:1fr 1fr}.kpis .prog{grid-column:1/-1}.grid{grid-template-columns:1fr}.zones{grid-template-columns:1fr 1fr}.det{grid-template-columns:1fr}}
+.tabs{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}.tabs button{border:0;background:var(--inp);padding:6px 12px;font-weight:600;cursor:pointer}.tabs button[aria-pressed=true]{background:var(--navy);color:var(--card)}
+.kb{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:470px;overflow:auto}.kb[hidden]{display:none}
+.col{border:1px solid var(--line);border-radius:8px;background:var(--inp);padding:8px;min-height:120px}.col.over{outline:2px dashed var(--c)}.col h3{margin:0 0 8px;font-size:12.5px;color:var(--c)}
+.kc{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:8px;padding:8px;margin-bottom:6px;cursor:grab;font-size:12.5px}.kc:active{cursor:grabbing}.kc b{display:block}.kc small{color:var(--mut)}.kc .mv{display:flex;justify-content:space-between;margin-top:4px}.kc .mv button{border:1px solid var(--line);background:var(--inp);border-radius:6px;cursor:pointer;padding:0 8px}
+.sumg{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center}.lgd{display:grid;gap:4px;margin-top:8px}.lgd button{display:flex;align-items:center;gap:6px;border:0;background:none;text-align:left;cursor:pointer;padding:2px 4px;border-radius:6px;font-size:12.5px}.lgd button:hover,.lgd button[aria-pressed=true]{background:var(--inp)}
+.zr{display:grid;grid-template-columns:150px 1fr 46px;gap:10px;align-items:center;margin-bottom:8px;cursor:pointer;font-size:12.5px;border:0;background:none;width:100%;text-align:left;padding:2px}.zr .bar{margin:0;height:14px}.zr[aria-pressed=true]{background:var(--inp);border-radius:6px}
+@media(max-width:900px){.sumg{grid-template-columns:1fr}.kb{grid-template-columns:1fr}.zr{grid-template-columns:100px 1fr 40px}}
+body{overflow-x:hidden}
+.wide{width:100vw;position:relative;left:50%;margin-left:-50vw;border-radius:0;border-left:0;border-right:0;padding:16px 0}
+.wide>:not(#map){margin-left:clamp(14px,3vw,32px);margin-right:clamp(14px,3vw,32px)}
+#map{height:calc(100vh - 150px);min-height:420px;max-height:820px;z-index:0}#map.adding{cursor:crosshair}
+.pin{width:34px;height:34px;border-radius:50%;background:var(--p);border:5px solid var(--s);box-shadow:0 0 0 2px #fff,0 2px 8px rgba(0,0,0,.55);color:#fff;font:700 11px/24px system-ui,sans-serif;text-align:center;cursor:pointer;transition:transform .15s}
+.pin:hover{transform:scale(1.15)}.pin.sel{transform:scale(1.3);box-shadow:0 0 0 3px #fff,0 0 0 6px #0d1b36}.pin.dim{opacity:.25}
+.pin{position:relative}.bd{position:absolute;right:-6px;top:-6px;width:15px;height:15px;border-radius:50%;background:#fff;border:3px solid #0b2a5b}
+.lb{position:fixed;inset:0;background:rgba(5,10,22,.93);z-index:2000;display:grid;place-items:center;padding:12px}.lb[hidden]{display:none}
+.lbi{width:min(1100px,100%);max-height:100%;display:grid;gap:10px;color:#fff}.lbh{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.lbi .btnl{color:#fff;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3)}
+.cr{position:relative;background:#0a0f1c;border-radius:10px;overflow:hidden;display:grid;place-items:center;aspect-ratio:4/3}
+.cr img{width:100%;height:100%;object-fit:contain;display:block;cursor:zoom-in;user-select:none}
+.lb .cr{aspect-ratio:auto;height:min(68vh,720px)}
+.cb{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:22px;line-height:1;cursor:pointer;z-index:2}.cb.p{left:8px}.cb.n{right:8px}.cb:disabled{display:none}
+.cc{position:absolute;left:0;right:0;bottom:0;padding:18px 12px 8px;background:linear-gradient(transparent,rgba(0,0,0,.8));color:#fff;font-size:12.5px;pointer-events:none}
+.lbs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}.lbs img{height:56px;width:76px;object-fit:cover;border-radius:6px;border:2px solid transparent;opacity:.6;cursor:pointer;flex:none}.lbs img.on{border-color:#f5a524;opacity:1}
+.pp{width:240px;color:#0d1b36}.pph{margin:6px 0;font-size:12.5px}.pph .cr{height:150px;aspect-ratio:auto}.ppb{display:flex;gap:6px;flex-wrap:wrap}.pp .btnl{color:#0d1b36}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin-top:6px}.fg .th{position:relative}.fg img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;cursor:pointer;border:1px solid var(--line);display:block}
+.fg .x{position:absolute;top:3px;right:3px;width:22px;height:22px;border-radius:50%;border:0;background:rgba(200,32,47,.92);color:#fff;cursor:pointer;font-size:14px;line-height:20px}
+.up{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-top:10px;align-items:end}@media(max-width:700px){.up{grid-template-columns:1fr}}
+</style><script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script></head><body>
+<header><div class="in"><div><h1>Monitoring Penanganan Kebocoran Atap</h1><p>Bandara Internasional Syamsudin Noor · Sumber: survei ArcGIS Field Maps, November 2026</p></div>
+<div class="btns"><span class="sy" data-ok="1"><?= esc($user["nama"]) ?> · <?= $isAdmin ? "Admin" : "Hanya lihat" ?></span><button class="btn" id="xl">Unduh Excel</button><button class="btn" id="exp">Unduh CSV</button><?php if ($isAdmin): ?><a class="btn" href="<?= site_url("users") ?>">Kelola pengguna</a><?php endif ?><a class="btn" href="<?= site_url("logout") ?>">Keluar</a><span class="sy" id="sy" data-ok="0">Menyambung…</span></div></div></header>
+<main>
+<section class="kpis" id="kpis"></section>
+<section class="card" id="sum"></section>
+<section class="grid">
+<div class="card wide"><div class="maph"><h2>Peta sebaran titik – Bandara Syamsudin Noor</h2><span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btnl" id="fit">Pusatkan peta</button><button class="add" id="ab">+ Titik baru</button></span></div><div id="map" role="region" aria-label="Peta sebaran titik kebocoran"></div>
+<div class="legend" id="lg"></div><div class="zones" id="zones"></div><div class="af det" id="af" hidden></div></div>
+<div class="card"><div class="maph"><h2>Daftar titik</h2><div class="tabs" id="tabs"><button data-v="tabel" aria-pressed="true">Tabel</button><button data-v="kanban" aria-pressed="false">Kanban</button></div></div><div class="tools"><input id="q" type="search" placeholder="Cari titik, PIC, catatan" aria-label="Cari"><select id="fs" aria-label="Filter status"></select></div>
+<div class="tw"><table><thead><tr><th>Titik</th><th>Prio</th><th>Zona</th><th>Status</th><th>Target</th></tr></thead><tbody id="tb"></tbody></table></div>
+<div class="kb" id="kb" hidden></div><p class="note" id="cnt"></p></div></section>
+<section class="card" id="dc"><h2 id="dh">Detail penanganan</h2><div id="dd"></div></section>
+<p class="note">Data tersimpan di database MySQL dan diperbarui otomatis setiap 20 detik. Admin dapat mengubah data, sedangkan akun user hanya dapat melihat. Zona dan prioritas ditentukan dari posisi koordinat sesuai legenda peta: Airside dan Tengah-Atas Prioritas 1, Sayap Kanan Prioritas 2, Sayap Kiri Prioritas 3.</p>
+</main>
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Galeri foto progres"><div class="lbi"><div class="lbh"><b id="lbt"></b><button class="btnl" id="lbx">✕ Tutup</button></div><div id="lbc"></div><div class="lbs" id="lbs"></div></div></div>
+<script>
+const CAN=<?= $isAdmin ? "true" : "false" ?>,CSRF="<?= esc($csrf) ?>",API="<?= site_url("api") ?>";let D=[];
+const POS={};
+const Z={airside:{l:'Airside / Atap Datar',p:1},tengah:{l:'Tengah-Atas',p:1},kanan:{l:'Sayap Kanan',p:2},kiri:{l:'Sayap Kiri',p:3}};
+const S=['Belum Ditangani','Dijadwalkan','Dalam Perbaikan','Selesai'];
+const SC=['--s0','--s1','--s2','--s3'];
+const PC={1:'--p1',2:'--p2',3:'--p3'};
+const pos=d=>POS[d.id]||[d.x,d.y];
+const KEY='sn-leak-monitor-v1';
+let st={},zf=null,sel=null;
+let col=null,addMode=false,addPos=null;
+const setSync=(m,ok)=>{$('sy').textContent=m;$('sy').dataset.ok=ok?1:0};
+const g=d=>st[d.id]||{s:0,pic:'',t:'',n:'',u:'',log:[]};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const today=new Date().toISOString().slice(0,10);
+const late=d=>{const x=g(d);return x.t&&x.t<today&&x.s<3};
+const list=()=>{const q=$('q').value.toLowerCase(),f=$('fs').value;
+return D.filter(d=>{const x=g(d);return(!zf||d.zone===zf)&&(f===''||x.s==f)&&(!q||(d.alias.join(' ')+x.pic+x.n+Z[d.zone].l).toLowerCase().includes(q))})
+.sort((a,b)=>Z[a.zone].p-Z[b.zone].p||a.id.localeCompare(b.id))};
+function kpis(){const c=[0,0,0,0];D.forEach(d=>c[g(d).s]++);const n=D.length,pct=Math.round(c[3]/n*100);
+const p1=D.filter(d=>Z[d.zone].p==1),p1d=p1.filter(d=>g(d).s==3).length,ov=D.filter(late).length;
+$('kpis').innerHTML=`<div class="card prog kpi" style="--c:var(--navy)"><div style="flex:1"><span>Progres penanganan</span><b>${pct}%</b><div class="bar">${c.map((v,i)=>`<i style="width:${v/n*100}%;background:var(${SC[i]})"></i>`).reverse().join('')}</div><span>${c[3]} dari ${n} lokasi selesai · ${ov} lewat target</span></div></div>`+
+S.slice(0,3).map((s,i)=>`<div class="card kpi" style="--c:var(${SC[i]})"><b>${c[i]}</b><span>${s}</span></div>`).join('')+
+`<div class="card kpi" style="--c:var(--p1)"><b>${p1d}/${p1.length}</b><span>Prioritas 1 selesai</span></div>`}
+let LM=null,LG=null,fitted=false;
+function initMap(){if(typeof L==='undefined'){$('map').innerHTML='<p class="ro">Peta gagal dimuat. Periksa koneksi internet (Leaflet dan tile peta).</p>';return}
+LM=L.map('map',{maxZoom:20}).setView([-3.4368,114.7607],18);
+const sat=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:20,maxNativeZoom:19,attribution:'Imagery © Esri, Maxar, Earthstar Geographics'}).addTo(LM);
+const osm=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:20,maxNativeZoom:19,attribution:'© OpenStreetMap contributors'});
+L.control.layers({'Satelit':sat,'Peta jalan':osm}).addTo(LM);LG=L.layerGroup().addTo(LM);LM.on('popupclose',()=>{if(!rebuilding)popId=null});
+LM.on('click',e=>{if(!addMode)return;addPos=[e.latlng.lat,e.latlng.lng];$('ala').value=addPos[0].toFixed(6);$('alo').value=addPos[1].toFixed(6);$('ap').textContent='Posisi dipilih. Klik lagi untuk memindahkan, lalu simpan.';map()})}
+function fitAll(){if(!LM)return;const p=D.filter(d=>d.lat!=null&&d.lon!=null).map(d=>[d.lat,d.lon]);if(p.length)LM.fitBounds(p,{padding:[40,40],maxZoom:19})}
+let popId=null,rebuilding=false;
+function map(){if(!LM)return;rebuilding=true;LG.clearLayers();const vis=new Set(list().map(d=>d.id));
+D.forEach(d=>{if(d.lat==null||d.lon==null)return;const x=g(d),on=vis.has(d.id);
+const ic=L.divIcon({className:'',iconSize:[34,34],iconAnchor:[17,17],html:`<div class="pin${sel===d.id?' sel':''}${on?'':' dim'}" style="--p:var(${PC[Z[d.zone].p]});--s:var(${SC[x.s]})">${x.s==3?'✓':esc(d.lab||d.id.slice(1))}${d.nfoto?'<i class="bd"></i>':''}</div>`});
+const m=L.marker([d.lat,d.lon],{icon:ic,title:d.alias.join(', ')}).addTo(LG);
+m.bindTooltip(esc(d.alias.join(', '))+' · '+S[x.s]);m.bindPopup(()=>popEl(d),{minWidth:240,maxWidth:280});
+m.on('click',e=>{L.DomEvent.stopPropagation(e);popId=addMode?null:d.id;pick(d.id,true)});if(popId===d.id)m.openPopup()});rebuilding=false;
+if(addPos)L.circleMarker(addPos,{radius:14,color:'#0b2a5b',weight:4,dashArray:'5 3',fillColor:'#fff',fillOpacity:.9}).addTo(LG);
+$('map').classList.toggle('adding',addMode);
+if(!fitted&&D.length){fitted=true;fitAll()}}
+function zones(){$('zones').innerHTML=Object.keys(Z).map(k=>{const a=D.filter(d=>d.zone===k),dn=a.filter(d=>g(d).s==3).length;
+return `<button class="z" data-z="${k}" aria-pressed="${zf===k}"><b><span class="dot" style="background:var(${PC[Z[k].p]})"></span>${Z[k].l}</b><small>Prioritas ${Z[k].p} · ${dn}/${a.length} selesai</small></button>`}).join('');
+$('zones').querySelectorAll('.z').forEach(b=>b.onclick=()=>{zf=zf===b.dataset.z?null:b.dataset.z;all()})}
+function table(){const a=list();$('tb').innerHTML=a.map(d=>{const x=g(d);return `<tr class="r ${sel===d.id?'sel':''}" data-id="${d.id}" tabindex="0"><td><b>${d.name}</b>${d.n>1?` <small class="note">(${d.n}x survei)</small>`:''}${d.nfoto?` <small class="note">📷 ${d.nfoto}</small>`:''}</td><td><span class="pr" style="--c:var(${PC[Z[d.zone].p]})">${Z[d.zone].p}</span></td><td>${Z[d.zone].l}</td><td><span class="pill" style="--c:var(${SC[x.s]})">${S[x.s]}</span></td><td class="${late(d)?'late':''}">${x.t||'–'}${late(d)?' ⚠':''}</td></tr>`}).join('')||'<tr><td colspan="5">Tidak ada titik yang cocok dengan filter.</td></tr>';
+$('cnt').textContent=`Menampilkan ${a.length} dari ${D.length} lokasi`;
+$('tb').querySelectorAll('tr.r').forEach(r=>{r.onclick=()=>pick(r.dataset.id);r.onkeydown=e=>{if(e.key==='Enter')pick(r.dataset.id)}})}
+function detail(){const d=D.find(x=>x.id===sel);if(!d){$('dh').textContent='Detail penanganan';$('dd').innerHTML='<p class="note">Pilih titik pada peta atau tabel untuk memperbarui status, PIC, target, dan catatan.</p>';return}
+const x=g(d),c=d.lat!=null&&d.lon!=null?(+d.lat).toFixed(6)+','+(+d.lon).toFixed(6):null;
+$('dh').textContent=d.alias.join(', ')+' · '+Z[d.zone].l;
+$('dd').innerHTML=`<div class="det"><div class="full"><div class="sbtn">${S.map((s,i)=>`<button style="--c:var(${SC[i]})" data-s="${i}" aria-pressed="${x.s==i}">${s}</button>`).join('')}</div></div>
+<label>PIC / Penanggung jawab<input id="fp" value="${esc(x.pic)}" placeholder="Nama tim atau vendor"></label>
+<label>Target selesai<input id="ft" type="date" value="${x.t}"></label>
+<label class="full">Catatan penanganan<textarea id="fn" rows="3" placeholder="Penyebab, metode perbaikan, material, hasil uji">${esc(x.n)}</textarea></label>
+<div class="full note">${c?`Koordinat ${c} · `:'Koordinat belum diisi · '}Prioritas ${Z[d.zone].p}${x.u?' · Diperbarui '+x.u:''}${c?` · <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${c}">Google Maps</a> · <a target="_blank" rel="noopener" href="https://earth.google.com/web/@${c},50a,300d,35y,0h,0t,0r">Google Earth</a>`:''}</div>
+${(x.log||[]).length?`<div class="full note"><b>Riwayat status:</b> ${x.log.slice(0,5).map(l=>esc(l.a)+' ('+esc(l.w)+')').join(' → ')}</div>`:''}
+<div class="full" id="fotoBox"></div>
+${d.custom&&CAN?'<div class="full"><button class="btnl dng" id="del">Hapus titik ini</button></div>':''}</div>`;
+renderFoto(d);
+if(!CAN)$('dd').querySelectorAll('input,textarea,.sbtn button').forEach(e=>e.disabled=true);
+const up=(k,v)=>{if(!CAN)return;const o={...g(d)};o[k]=v;o.u=new Date().toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'});if(k==='s')o.log=[{w:o.u,a:S[v]}].concat(o.log||[]).slice(0,15);put(d.id,o);kpis();map();zones();table()};
+$('dd').querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{up('s',+b.dataset.s);detail()});
+$('fp').onchange=e=>up('pic',e.target.value);$('ft').onchange=e=>{up('t',e.target.value)};$('fn').onchange=e=>up('n',e.target.value);
+if($('del'))$('del').onclick=()=>{if(confirm('Hapus titik '+d.name+' dari database?')){remove(d.id)}}}
+function pick(id,ns){sel=id;const d0=D.find(x=>x.id===id);if(LM&&d0&&d0.lat!=null)LM.panTo([d0.lat,d0.lon]);all();if(!ns)$('dc').scrollIntoView({behavior:'smooth',block:'nearest'})}
+let view='tabel';
+function all(keep){summary();kanban();kpis();map();zones();table();if(!(keep&&document.activeElement&&$('dd').contains(document.activeElement)))detail()}
+$('fs').innerHTML='<option value="">Semua status</option>'+S.map((s,i)=>`<option value="${i}">${s}</option>`).join('');
+$('lg').innerHTML=[1,2,3].map(p=>`<span><i class="dot" style="background:var(${PC[p]})"></i>Prioritas ${p}</span>`).join('')+S.map((s,i)=>`<span><i class="dot" style="background:transparent;border:3px solid var(${SC[i]})"></i>${s}</span>`).join('');
+$('q').oninput=all;$('fs').onchange=all;
+
+function summary(){const c=[0,0,0,0];D.forEach(d=>c[g(d).s]++);const n=D.length||1,R_=48,C=2*Math.PI*R_;let off=0;
+const f=$('fs').value;
+let seg='';c.forEach((v,i)=>{const L=v/n*C;seg+=`<circle cx="70" cy="70" r="${R_}" fill="none" stroke="var(${SC[i]})" stroke-width="20" stroke-dasharray="${L} ${C-L}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)" data-s="${i}" style="cursor:pointer"><title>${S[i]}: ${v}</title></circle>`;off+=L});
+const z=Object.keys(Z).map(k=>{const a=D.filter(d=>d.zone===k),cs=[0,0,0,0];a.forEach(d=>cs[g(d).s]++);
+return `<button class="zr" data-z="${k}" aria-pressed="${zf===k}"><span><span class="dot" style="background:var(${PC[Z[k].p]})"></span>${Z[k].l}</span><span class="bar">${cs.map((v,i)=>`<i style="width:${v/(a.length||1)*100}%;background:var(${SC[i]})"></i>`).join('')}</span><span>${cs[3]}/${a.length}</span></button>`}).join('');
+$('sum').innerHTML=`<div class="sumg"><div><svg width="140" height="140" viewBox="0 0 140 140" role="img" aria-label="Distribusi status">${seg}<text x="70" y="68" text-anchor="middle" font-size="24" font-weight="800" fill="var(--ink)">${Math.round(c[3]/n*100)}%</text><text x="70" y="86" text-anchor="middle" font-size="10" fill="var(--mut)">selesai</text></svg></div>
+<div><h2>Ringkasan status dan zona</h2>${z}<div class="lgd" style="grid-template-columns:repeat(4,auto);justify-content:start;gap:4px 14px">${S.map((s,i)=>`<button data-s="${i}" aria-pressed="${f===String(i)}"><i class="dot" style="background:var(${SC[i]})"></i>${s} (${c[i]})</button>`).join('')}</div></div></div>`;
+$('sum').querySelectorAll('[data-s]').forEach(e=>e.onclick=()=>{const v=e.dataset.s;$('fs').value=$('fs').value===v?'':v;all()});
+$('sum').querySelectorAll('.zr').forEach(e=>e.onclick=()=>{zf=zf===e.dataset.z?null:e.dataset.z;all()})}
+function setStatus(id,s){if(!CAN)return;const d=D.find(x=>x.id===id);if(!d||g(d).s===s)return;const o={...g(d)};o.s=s;o.u=new Date().toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'});o.log=[{w:o.u,a:S[s]}].concat(o.log||[]).slice(0,15);put(id,o);all()}
+function kanban(){const a=list();$('kb').innerHTML=S.map((s,i)=>`<div class="col" data-c="${i}" style="--c:var(${SC[i]})"><h3>${s} (${a.filter(d=>g(d).s===i).length})</h3>${a.filter(d=>g(d).s===i).map(d=>{const x=g(d);return `<div class="kc" draggable="${CAN}" data-id="${d.id}" style="--c:var(${PC[Z[d.zone].p]})"><b>${esc(d.name)}</b><small>${Z[d.zone].l}${x.pic?' · '+esc(x.pic):''}${x.t?' · '+x.t:''}${late(d)?' ⚠':''}</small><div class="mv" ${CAN?"":"hidden"}><button data-m="-1" aria-label="Mundur" ${i==0?'disabled':''}>‹</button><button data-m="1" aria-label="Maju" ${i==3?'disabled':''}>›</button></div></div>`}).join('')}</div>`).join('');
+$('kb').querySelectorAll('.kc').forEach(k=>{k.ondragstart=e=>e.dataTransfer.setData('text/plain',k.dataset.id);k.onclick=e=>{if(e.target.closest('button'))return;pick(k.dataset.id)};
+k.querySelectorAll('button').forEach(b=>b.onclick=()=>{const d=D.find(x=>x.id===k.dataset.id);setStatus(d.id,Math.max(0,Math.min(3,g(d).s+ +b.dataset.m)))})});
+$('kb').querySelectorAll('.col').forEach(c=>{c.ondragover=e=>{e.preventDefault();c.classList.add('over')};c.ondragleave=()=>c.classList.remove('over');c.ondrop=e=>{e.preventDefault();c.classList.remove('over');setStatus(e.dataTransfer.getData('text/plain'),+c.dataset.c)}})}
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{view=b.dataset.v;document.querySelectorAll('#tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));document.querySelector('.tw').hidden=view!=='tabel';$('kb').hidden=view!=='kanban'});
+function saveFile(name,data){const u=URL.createObjectURL(new Blob([data]));const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),3000)}
+$('xl').onclick=()=>{if(typeof XLSX==='undefined'){setSync('Pustaka Excel gagal dimuat',0);return}
+const wb=XLSX.utils.book_new(),A=(n,r)=>XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(r),n),rw=[];
+A('titik_kebocoran',D.map(d=>({id_titik:d.id,nama:d.name,alias_survei:d.alias.join(', '),kode_zona:d.zone,zona:Z[d.zone].l,prioritas:Z[d.zone].p,latitude:d.lat??'',longitude:d.lon??'',pos_x:pos(d)[0],pos_y:pos(d)[1],jumlah_survei:d.n,asal:d.custom?'baru':'survei'})));
+A('penanganan',D.map(d=>{const x=g(d);return{id_titik:d.id,nama:d.name,status:S[x.s],pic:x.pic,target_selesai:x.t,catatan:x.n,diperbarui:x.u}}));
+D.forEach(d=>(g(d).log||[]).forEach(l=>rw.push({id_titik:d.id,waktu:l.w,status:l.a})));A('riwayat_status',rw);
+saveFile('database_kebocoran_atap.xlsx',XLSX.write(wb,{type:'array',bookType:'xlsx'}))};
+$('exp').onclick=()=>{const rows=[['Titik','Alias survei','Zona','Prioritas','Latitude','Longitude','Status','PIC','Target','Catatan','Diperbarui']];
+D.forEach(d=>{const x=g(d);rows.push([d.name,d.alias.join(' / '),Z[d.zone].l,Z[d.zone].p,d.lat,d.lon,S[x.s],x.pic,x.t,x.n,x.u])});
+const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+saveFile('monitoring_kebocoran_atap.csv','\ufeff'+csv)};
+
+async function api(path,body){const r=await fetch(API+'/'+path,{method:body?'POST':'GET',headers:{'Content-Type':'application/json','X-CSRF':CSRF,'X-Requested-With':'XMLHttpRequest'},body:body?JSON.stringify(body):undefined,credentials:'same-origin',cache:'no-store'});
+if(r.status===403){const j=await r.json().catch(()=>({}));throw new Error(j.error||'Akses ditolak')}
+if(r.redirected||!r.ok)throw new Error(r.redirected?'Sesi berakhir. Muat ulang dan masuk lagi.':'Kesalahan server ('+r.status+')');return r.json()}
+function applyRows(rows,keep){st={};D=[];const cu=[];rows.forEach(r=>{st[r.id]={s:+r.s,pic:r.pic||'',t:r.t||'',n:r.note||'',u:r.u||'',log:r.log||[]};
+const d={id:r.id,name:r.name,alias:String(r.alias||r.name).split(', '),zone:Z[r.zone]?r.zone:'kiri',lat:r.lat==null?null:+r.lat,lon:r.lon==null?null:+r.lon,n:+r.n,x:+r.x,y:+r.y,custom:!!+r.custom,nfoto:+r.nfoto||0};D.push(d);if(d.custom)cu.push(d)});
+cu.forEach((d,i)=>d.lab='N'+(i+1));if(sel&&!D.find(d=>d.id===sel))sel=null;all(keep)}
+async function load(keep){try{applyRows(await api('titik'),keep);setSync(CAN?'Terhubung ke MySQL (mode admin)':'Terhubung ke MySQL (hanya lihat)',1)}catch(e){setSync(e.message,0)}}
+async function put(id,v){if(!CAN)return;st[id]=v;try{setSync('Menyimpan…',1);await api('penanganan',{id,s:v.s,pic:v.pic,t:v.t,n:v.n});await load(true);setSync('Tersimpan di database MySQL',1)}catch(e){setSync(e.message,0);load(true)}}
+async function remove(id){try{await api('hapus',{id});sel=null;await load()}catch(e){setSync(e.message,0)}}
+
+// ===== foto progres: carousel, lightbox, upload =====
+const PH={};
+async function getFoto(id,force){if(!force&&PH[id])return PH[id];return PH[id]=await api('foto/'+encodeURIComponent(id))}
+function carousel(el,f,start,onImg,onChange){let i=Math.min(start||0,f.length-1);
+el.innerHTML='<div class="cr"><button class="cb p" aria-label="Foto sebelumnya">‹</button><img alt=""><button class="cb n" aria-label="Foto berikutnya">›</button><div class="cc"></div></div>';
+const im=el.querySelector('img'),cc=el.querySelector('.cc'),p=el.querySelector('.p'),n=el.querySelector('.n');
+const go=k=>{i=(k+f.length)%f.length;const x=f[i];im.src=x.url;im.alt=x.ket||('Foto progres '+(i+1));cc.textContent=(i+1)+'/'+f.length+(x.ket?' · '+x.ket:'')+(x.w?' · '+x.w:'');if(onChange)onChange(i)};
+p.onclick=e=>{e.stopPropagation();go(i-1)};n.onclick=e=>{e.stopPropagation();go(i+1)};if(f.length<2){p.disabled=true;n.disabled=true}
+im.onclick=()=>onImg&&onImg(i);let sx=null;
+im.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+im.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>40)go(i+(dx<0?1:-1))});
+go(i);return{go,next:()=>go(i+1),prev:()=>go(i-1)}}
+let LB=null;
+async function openLB(id,start){const d=D.find(x=>x.id===id);$('lbt').textContent=(d?d.name+' · ':'')+'Foto progres';$('lb').hidden=false;document.body.style.overflow='hidden';
+const box=$('lbc');box.textContent='Memuat…';$('lbs').innerHTML='';$('lbx').focus();
+try{const f=await getFoto(id,true);if(!f.length){box.innerHTML='<p>Belum ada foto progres untuk titik ini.</p>';LB=null;return}
+LB=carousel(box,f,start||0,null,i=>{[...$('lbs').children].forEach((x,k)=>x.classList.toggle('on',k===i))});
+$('lbs').innerHTML=f.map((x,k)=>`<img src="${esc(x.url)}" alt="Foto ${k+1}" data-k="${k}">`).join('');
+$('lbs').querySelectorAll('img').forEach(im=>im.onclick=()=>LB.go(+im.dataset.k));LB.go(start||0)}catch(e){box.textContent=e.message}}
+function closeLB(){$('lb').hidden=true;document.body.style.overflow='';LB=null}
+$('lbx').onclick=closeLB;$('lb').onclick=e=>{if(e.target===$('lb'))closeLB()};
+document.addEventListener('keydown',e=>{if($('lb').hidden)return;if(e.key==='Escape')closeLB();else if(LB&&e.key==='ArrowLeft')LB.prev();else if(LB&&e.key==='ArrowRight')LB.next()});
+function popEl(d){const x=g(d),el=document.createElement('div');el.className='pp';
+el.innerHTML=`<b>${esc(d.name)}</b><div class="note">${Z[d.zone].l} · <span class="pill" style="--c:var(${SC[x.s]})">${S[x.s]}</span></div><div class="pph">Memuat foto…</div><div class="ppb"><button class="btnl" data-a="g">Buka galeri</button><button class="btnl" data-a="d">${CAN?'Detail / upload':'Detail'}</button></div>`;
+getFoto(d.id,true).then(f=>{const h=el.querySelector('.pph');if(!f.length){h.textContent='Belum ada foto progres.';return}h.innerHTML='';const c=document.createElement('div');h.appendChild(c);carousel(c,f,0,i=>openLB(d.id,i))}).catch(e=>{el.querySelector('.pph').textContent=e.message});
+el.querySelector('[data-a=g]').onclick=()=>openLB(d.id,0);el.querySelector('[data-a=d]').onclick=()=>$('dc').scrollIntoView({behavior:'smooth',block:'start'});return el}
+async function renderFoto(d){const b=$('fotoBox');if(!b)return;let f=[];
+try{f=await getFoto(d.id,true)}catch(e){b.textContent=e.message;return}
+if(sel!==d.id||!$('fotoBox'))return;
+b.innerHTML=`<b>Foto progres (${f.length})</b>${f.length?`<div class="fg">${f.map((x,k)=>`<div class="th"><img src="${esc(x.url)}" alt="${esc(x.ket||'Foto '+(k+1))}" data-k="${k}" loading="lazy">${CAN?`<button class="x" data-del="${x.id}" aria-label="Hapus foto">×</button>`:''}</div>`).join('')}</div>`:'<div class="note">Belum ada foto.</div>'}${CAN?`<div class="up"><label>Pilih foto (boleh lebih dari satu)<input type="file" id="fu" accept="image/jpeg,image/png,image/webp" multiple></label><label>Keterangan (opsional)<input id="fk" maxlength="200" placeholder="Contoh: Waterproofing selesai 50%"></label><button class="btnl" id="fb">Unggah</button></div><div class="note" id="fs2"></div>`:''}`;
+b.querySelectorAll('.fg img').forEach(im=>im.onclick=()=>openLB(d.id,+im.dataset.k));
+b.querySelectorAll('[data-del]').forEach(x=>x.onclick=async()=>{if(!confirm('Hapus foto ini?'))return;try{await api('foto-hapus',{id:+x.dataset.del});delete PH[d.id];await load(true);renderFoto(d)}catch(e){setSync(e.message,0)}});
+if(CAN)$('fb').onclick=()=>uploadFoto(d)}
+async function shrink(file){try{const bmp=await createImageBitmap(file),s=Math.min(1,1600/Math.max(bmp.width,bmp.height)),c=document.createElement('canvas');c.width=Math.round(bmp.width*s);c.height=Math.round(bmp.height*s);c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+const b=await new Promise(r=>c.toBlob(r,'image/jpeg',.82));if(b)return new File([b],file.name.replace(/\.\w+$/,'')+'.jpg',{type:'image/jpeg'})}catch(e){}return file}
+async function uploadFoto(d){const st2=$('fs2'),fl=[...$('fu').files];
+if(!fl.length){st2.textContent='Pilih minimal satu foto.';return}if(fl.length>10){st2.textContent='Maksimal 10 foto per unggahan.';return}
+$('fb').disabled=true;st2.textContent='Memproses foto…';
+try{const fd=new FormData();fd.append('id_titik',d.id);fd.append('ket',$('fk').value);
+for(const f of fl){if(!/^image\/(jpeg|png|webp)$/.test(f.type))throw new Error(f.name+': format harus JPG, PNG, atau WebP');const s=await shrink(f);if(s.size>5*1024*1024)throw new Error(f.name+': ukuran terlalu besar');fd.append('foto[]',s,s.name)}
+st2.textContent='Mengunggah '+fl.length+' foto…';
+const r=await fetch(API+'/foto-upload',{method:'POST',headers:{'X-CSRF':CSRF,'X-Requested-With':'XMLHttpRequest'},body:fd,credentials:'same-origin',cache:'no-store'});
+const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||('Gagal mengunggah ('+r.status+')'));
+delete PH[d.id];await load(true);await renderFoto(d);const s2=$('fs2');if(s2)s2.textContent=j.ok+' foto terunggah.'+(j.errors&&j.errors.length?' Gagal: '+j.errors.join('; '):'')}
+catch(e){st2.textContent=e.message;$('fb').disabled=false}}
+// tambah titik baru
+function openAdd(){addMode=true;addPos=null;sel=null;const af=$('af');af.hidden=false;
+af.innerHTML=`<div class="full"><b>Titik kebocoran baru</b><div class="note" id="ap">Klik lokasi pada peta; latitude dan longitude terisi otomatis (bisa diedit).</div></div>
+<label>Nama titik<input id="an" placeholder="Contoh: Titik 29"></label>
+<label>Zona<select id="az">${Object.keys(Z).map(k=>`<option value="${k}">${Z[k].l} (Prioritas ${Z[k].p})</option>`).join('')}</select></label>
+<label>Latitude<input id="ala" inputmode="decimal" placeholder="-3.437210"></label>
+<label>Longitude<input id="alo" inputmode="decimal" placeholder="114.762249"></label>
+<div class="full sbtn"><button class="btnl" id="asv" style="flex:0 0 auto;background:var(--navy);color:var(--card)">Simpan titik</button><button class="btnl" id="acn" style="flex:0 0 auto">Batal</button></div>`;
+$('acn').onclick=closeAdd;
+$('asv').onclick=async()=>{const nm=$('an').value.trim();if(!nm){$('ap').textContent='Isi nama titik dulu.';return}
+const num=s=>{const v=parseFloat(String(s).replace(',','.'));return isFinite(v)?v:null};
+const la=num($('ala').value),lo=num($('alo').value);if(la==null||lo==null||Math.abs(la)>90||Math.abs(lo)>180){$('ap').textContent='Klik lokasi pada peta atau isi latitude dan longitude dengan benar.';return}
+try{const r=await api('tambah',{name:nm,zone:$('az').value,lat:la,lon:lo});closeAdd();await load();pick(r.id)}catch(e){$('ap').textContent=e.message}};
+map();$('af').scrollIntoView({behavior:'smooth',block:'nearest'})}
+function closeAdd(){addMode=false;addPos=null;$('af').hidden=true;map()}
+$('ab').onclick=()=>addMode?closeAdd():openAdd();
+$('fit').onclick=fitAll;
+if(!CAN){$('ab').hidden=true;$('map').insertAdjacentHTML('beforebegin','<p class="ro">Akun Anda hanya dapat melihat data. Hubungi admin untuk mengubah status penanganan.</p>')}
+initMap();all();load();setInterval(()=>{if(!document.hidden)load(true)},20000);
+</script></body></html>
